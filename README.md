@@ -1,3 +1,12 @@
+---
+title: Opportunity Radar
+emoji: 🎯
+colorFrom: blue
+colorTo: green
+sdk: docker
+pinned: false
+---
+
 # Opportunity Radar 🎯
 
 **AI-powered market intelligence that turns corporate filings, bulk deals, insider trades, and quarterly results into actionable investment signals for Indian retail investors.**
