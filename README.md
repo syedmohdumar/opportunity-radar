@@ -52,7 +52,7 @@ The **AI Signal Detection Engine** (powered by Groq Llama 3.1) then:
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/umaralishah/opportunity-radar.git
+git clone https://github.com/syedmohdumar/opportunity-radar.git
 cd opportunity-radar
 ```
 
