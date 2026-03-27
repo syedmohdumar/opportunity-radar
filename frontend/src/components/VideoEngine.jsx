@@ -4,7 +4,7 @@ import {
   TrendingUp, Loader2, Volume2, VolumeX, ChevronRight, Clock, Zap
 } from 'lucide-react';
 
-const API = '/api/video';
+const API = `${import.meta.env.VITE_API_URL || '/api'}/video`;
 
 const VIDEO_TYPES = [
   { id: 'market-wrap', label: 'Daily Market Wrap', icon: Film, color: '#0088EA', desc: 'AI-narrated summary of today\'s market activity', gradient: ['#0088EA', '#00C4FF', '#0055A4'] },

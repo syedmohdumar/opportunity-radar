@@ -26,7 +26,7 @@ export default function MarketTicker() {
 
   const fetchIndices = async () => {
     try {
-      const res = await fetch('/api/market/indices');
+      const res = await fetch(`${import.meta.env.VITE_API_URL || '/api'}/market/indices`);
       const data = await res.json();
       setIndices(data.indices || []);
       setIsLive(data.live || false);

@@ -4,7 +4,7 @@ import {
   CheckCircle, XCircle, ChevronDown, ChevronUp, Sparkles, ArrowRight, X
 } from 'lucide-react';
 
-const API_BASE = '/api';
+const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 async function fetchIPOs(search = '') {
   const params = search ? `?search=${encodeURIComponent(search)}` : '';
