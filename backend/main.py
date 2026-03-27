@@ -54,31 +54,14 @@ app.include_router(market.router)
 app.include_router(video.router)
 
 
-@app.get("/")
-async def root():
-    return {
-        "name": "Opportunity Radar",
-        "version": "1.0.0",
-        "description": "AI-powered market signal detection for Indian equities",
-        "endpoints": {
-            "signals": "/api/signals/",
-            "alerts": "/api/alerts/",
-            "scan": "/api/scan/",
-            "watchlist": "/api/watchlist/",
-            "docs": "/docs",
-        },
-    }
-
-
-@app.get("/health")
-async def health():
-    return {"status": "healthy"}
-
-
 # ─── Serve frontend static files in production ───
 STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
 if STATIC_DIR.exists():
     app.mount("/assets", StaticFiles(directory=STATIC_DIR / "assets"), name="assets")
+
+    @app.get("/")
+    async def serve_index():
+        return FileResponse(STATIC_DIR / "index.html")
 
     @app.get("/{full_path:path}")
     async def serve_spa(full_path: str):
@@ -87,3 +70,23 @@ if STATIC_DIR.exists():
         if file_path.is_file():
             return FileResponse(file_path)
         return FileResponse(STATIC_DIR / "index.html")
+else:
+    @app.get("/")
+    async def root():
+        return {
+            "name": "Opportunity Radar",
+            "version": "1.0.0",
+            "description": "AI-powered market signal detection for Indian equities",
+            "endpoints": {
+                "signals": "/api/signals/",
+                "alerts": "/api/alerts/",
+                "scan": "/api/scan/",
+                "watchlist": "/api/watchlist/",
+                "docs": "/docs",
+            },
+        }
+
+
+@app.get("/health")
+async def health():
+    return {"status": "healthy"}
