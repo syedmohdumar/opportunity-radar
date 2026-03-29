@@ -75,11 +75,11 @@ export default function DeepAnalysis() {
           {analysis.analysis.thesis && (
             <div className="analysis-card">
               <div className="flex items-center gap-2 mb-3">
-                <BarChart3 className="w-4 h-4 text-[#0088EA]" />
-                <h4 className="text-sm font-bold text-[#44475B]">Investment Thesis</h4>
-                <span className="text-xs text-[#0088EA] font-semibold ml-1">{analysis.symbol}</span>
+                <BarChart3 className="w-4 h-4 text-[#ff4444]" />
+                <h4 className="text-sm font-bold text-white">Investment Thesis</h4>
+                <span className="text-xs text-[#ff4444] font-semibold ml-1">{analysis.symbol}</span>
               </div>
-              <p className="text-[13px] text-[#44475B] leading-relaxed">{analysis.analysis.thesis}</p>
+              <p className="text-[13px] text-white leading-relaxed">{analysis.analysis.thesis}</p>
             </div>
           )}
 
@@ -127,8 +127,8 @@ export default function DeepAnalysis() {
               </div>
             )}
             {analysis.analysis.confidence && (
-              <span className="text-xs text-[#A0A7B4]">
-                AI Confidence: <span className="text-[#0088EA] font-bold">{Math.round(analysis.analysis.confidence * 100)}%</span>
+              <span className="text-xs text-[#888888]">
+                AI Confidence: <span className="text-[#ff4444] font-bold">{Math.round(analysis.analysis.confidence * 100)}%</span>
               </span>
             )}
           </div>

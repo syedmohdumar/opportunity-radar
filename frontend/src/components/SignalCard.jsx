@@ -11,7 +11,7 @@ export default function SignalCard({ signal, onAnalyze }) {
   const cat = categoryConfig[signal.signal_category] || categoryConfig.neutral;
   const CatIcon = cat.icon;
   const confidencePct = Math.round(signal.confidence_score * 100);
-  const confColor = confidencePct >= 85 ? '#00C853' : confidencePct >= 70 ? '#0088EA' : '#F59E0B';
+  const confColor = confidencePct >= 85 ? '#00ff00' : confidencePct >= 70 ? '#ff4444' : '#ffff00';
   const actionSuggestion = signal.raw_data?.action_suggestion || '';
   const timeHorizon = signal.raw_data?.time_horizon || '';
   const timeAgo = signal.created_at ? getTimeAgo(new Date(signal.created_at)) : '';
@@ -31,9 +31,9 @@ export default function SignalCard({ signal, onAnalyze }) {
             <CatIcon className="w-3 h-3" />
             {cat.label}
           </span>
-          <span className="text-[11px] text-[#A0A7B4] font-medium">{signal.signal_type?.replace(/_/g, ' ')}</span>
+          <span className="text-[11px] text-[#888888] font-medium">{signal.signal_type?.replace(/_/g, ' ')}</span>
         </div>
-        <span className="flex items-center gap-1 text-[11px] text-[#A0A7B4]">
+        <span className="flex items-center gap-1 text-[11px] text-[#888888]">
           <Clock className="w-3 h-3" />
           {timeAgo}
         </span>
@@ -41,14 +41,14 @@ export default function SignalCard({ signal, onAnalyze }) {
 
       {/* Symbol + Title */}
       <div className="flex items-start gap-3 mb-2">
-        <div className="shrink-0 w-9 h-9 rounded-lg bg-[#F0F2F5] border border-[#ECEDF1] flex items-center justify-center">
-          <span className="text-[10px] font-bold text-[#44475B] leading-none">
+        <div className="shrink-0 w-9 h-9 rounded-lg bg-[#2a2a2a] border border-[#333333] flex items-center justify-center">
+          <span className="text-[10px] font-bold text-white leading-none">
             {(signal.symbol || '??').slice(0, 3)}
           </span>
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-[#0088EA]">{signal.symbol}</span>
+            <span className="text-xs font-bold text-[#ff4444]">{signal.symbol}</span>
             {signal.company_name && signal.company_name !== signal.symbol && (
               <span className="text-[11px] text-[#7F8FA4] truncate">{signal.company_name}</span>
             )}
@@ -67,7 +67,7 @@ export default function SignalCard({ signal, onAnalyze }) {
       {/* AI Analysis expandable */}
       {signal.ai_analysis && (
         <details className="mb-3 group/details">
-          <summary className="text-[11px] text-[#0088EA]/80 cursor-pointer hover:text-[#0088EA] font-medium">
+          <summary className="text-[11px] text-[#ff4444]/80 cursor-pointer hover:text-[#ff4444] font-medium">
             View AI Analysis
           </summary>
           <p className="text-[11px] text-[#7F8FA4] mt-1.5 leading-relaxed pl-3 border-l-2 border-[#ECEDF1]">
@@ -110,12 +110,12 @@ export default function SignalCard({ signal, onAnalyze }) {
 
       {/* Action suggestion */}
       {actionSuggestion && (
-        <div className="mt-2.5 px-3 py-2 bg-[#0088EA]/5 border border-[#0088EA]/10 rounded-lg">
-          <span className="text-[11px] text-[#7F8FA4]">
-            <span className="font-semibold text-[#0088EA]">Action: </span>
+        <div className="mt-2.5 px-3 py-2 bg-[#ff4444]/5 border border-[#ff4444]/10 rounded-lg">
+          <span className="text-[11px] text-[#cccccc]">
+            <span className="font-semibold text-[#ff4444]">Action: </span>
             {actionSuggestion}
             {timeHorizon && (
-              <span className="text-[#A0A7B4] ml-1">· {timeHorizon.replace('_', ' ')}</span>
+              <span className="text-[#888888] ml-1">· {timeHorizon.replace('_', ' ')}</span>
             )}
           </span>
         </div>

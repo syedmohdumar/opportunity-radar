@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SlidersHorizontal } from 'lucide-react';
+import { SlidersHorizontal, TrendingUp, Zap, Target, Gauge } from 'lucide-react';
 
 const FILTERS = {
   category: [
@@ -40,35 +40,62 @@ export default function FilterBar({ onFilter }) {
 
   return (
     <div className="filter-bar">
-      <div className="flex items-center gap-2 mr-2">
-        <SlidersHorizontal className="w-3.5 h-3.5 text-[#7F8FA4]" />
-        <span className="text-[11px] font-semibold text-[#7F8FA4] uppercase tracking-wider">Filters</span>
+      <div className="flex items-center gap-2">
+        <SlidersHorizontal className="w-4 h-4" style={{ color: 'var(--text-primary)' }} />
+        <span className="text-[12px] font-semibold uppercase tracking-wider" style={{ color: 'var(--text-primary)' }}>Filters</span>
       </div>
 
-      {Object.entries(FILTERS).map(([key, options]) => (
+      <div className="flex items-center gap-1.5">
+        <TrendingUp className="w-3.5 h-3.5" style={{ color: 'var(--text-primary)' }} />
         <select
-          key={key}
-          value={filters[key]}
-          onChange={(e) => handleChange(key, e.target.value)}
+          value={filters.category}
+          onChange={(e) => handleChange('category', e.target.value)}
           className="filter-select"
         >
-          {options.map((opt) => (
+          {FILTERS.category.map((opt) => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>
           ))}
         </select>
-      ))}
+      </div>
+
+      <div className="flex items-center gap-1.5">
+        <Zap className="w-3.5 h-3.5" style={{ color: 'var(--text-primary)' }} />
+        <select
+          value={filters.signal_type}
+          onChange={(e) => handleChange('signal_type', e.target.value)}
+          className="filter-select"
+        >
+          {FILTERS.signal_type.map((opt) => (
+            <option key={opt.value} value={opt.value}>{opt.label}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="flex items-center gap-1.5">
+        <Target className="w-3.5 h-3.5" style={{ color: 'var(--text-primary)' }} />
+        <select
+          value={filters.impact}
+          onChange={(e) => handleChange('impact', e.target.value)}
+          className="filter-select"
+        >
+          {FILTERS.impact.map((opt) => (
+            <option key={opt.value} value={opt.value}>{opt.label}</option>
+          ))}
+        </select>
+      </div>
 
       <div className="flex items-center gap-2 ml-auto">
-        <label className="text-[11px] text-[#7F8FA4] font-medium">Confidence</label>
+        <Gauge className="w-4 h-4" style={{ color: 'var(--text-primary)' }} />
+        <label className="text-[12px] font-medium" style={{ color: 'var(--text-primary)' }}>Confidence</label>
         <input
           type="range"
           min="0"
           max="100"
           value={filters.min_confidence * 100}
           onChange={(e) => handleChange('min_confidence', Number(e.target.value) / 100)}
-          className="w-20 accent-[#0088EA] h-1"
+          className="w-20 h-1 confidence-slider"
         />
-        <span className="text-[11px] text-[#7F8FA4] font-mono w-7 text-right">
+        <span className="text-[12px] font-mono w-8 text-right" style={{ color: 'var(--text-primary)' }}>
           {Math.round(filters.min_confidence * 100)}%
         </span>
       </div>

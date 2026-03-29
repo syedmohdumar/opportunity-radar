@@ -42,11 +42,11 @@ export default function AlertsPanel({ alerts, onMarkRead }) {
                   <Icon className={`w-4 h-4 mt-0.5 shrink-0 ${
                     alert.priority === 'critical' ? 'text-red-400' :
                     alert.priority === 'high' ? 'text-orange-400' :
-                    'text-[#0088EA]'
+                    'text-[#ff4444]'
                   }`} />
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs font-bold text-[#0088EA]">{alert.symbol}</span>
+                      <span className="text-xs font-bold text-[#ff4444]">{alert.symbol}</span>
                       <span className={`badge ${
                         alert.priority === 'critical' ? 'badge-red' :
                         alert.priority === 'high' ? 'badge-yellow' :
@@ -61,7 +61,7 @@ export default function AlertsPanel({ alerts, onMarkRead }) {
                 {!alert.is_read && (
                   <button
                     onClick={() => onMarkRead(alert.id)}
-                    className="shrink-0 p-1.5 text-[#A0A7B4] hover:text-[#0088EA] transition-colors rounded-lg hover:bg-[#0088EA]/5"
+                    className="shrink-0 p-1.5 text-[#888888] hover:text-[#ff4444] transition-colors rounded-lg hover:bg-[#ff4444]/5"
                     title="Mark as read"
                   >
                     <CheckCheck className="w-4 h-4" />

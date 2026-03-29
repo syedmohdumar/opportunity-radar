@@ -142,7 +142,7 @@ function AnalysisModal({ data, onClose }) {
           <div className="grid grid-cols-3 gap-2 mb-4">
             <div className="stat-card py-3 px-3">
               <p className="text-[10px] text-[#A0A7B4] uppercase font-medium">Return Potential</p>
-              <p className="text-sm font-bold text-[#0088EA] mt-1">{analysis.return_potential}</p>
+              <p className="text-sm font-bold text-[#ff4444] mt-1">{analysis.return_potential}</p>
             </div>
             <div className="stat-card py-3 px-3">
               <p className="text-[10px] text-[#A0A7B4] uppercase font-medium">Risk Level</p>
@@ -157,10 +157,10 @@ function AnalysisModal({ data, onClose }) {
           </div>
 
           {/* AI Summary */}
-          <div className="analysis-card mb-3" style={{ borderLeft: '3px solid #0088EA' }}>
+          <div className="analysis-card mb-3" style={{ borderLeft: '3px solid #ff4444' }}>
             <div className="flex items-center gap-1.5 mb-2">
-              <Sparkles className="w-3.5 h-3.5 text-[#0088EA]" />
-              <h4 className="text-[11px] font-bold text-[#0088EA] uppercase tracking-wider">AI Summary</h4>
+              <Sparkles className="w-3.5 h-3.5 text-[#ff4444]" />
+              <h4 className="text-[11px] font-bold text-[#ff4444] uppercase tracking-wider">AI Summary</h4>
             </div>
             <p className="text-[13px] text-[#44475B] leading-relaxed">{analysis.ai_summary}</p>
           </div>

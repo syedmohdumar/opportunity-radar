@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
-  Radar, RefreshCw, Bell, Crosshair, Loader2, TrendingUp,
-  Activity, Menu, X, ChevronRight, Film
+  RefreshCw, Bell, Crosshair, Loader2, TrendingUp,
+  Activity, Menu, X, ChevronRight, Film, Moon, Sun
 } from 'lucide-react';
+import etLogo from './assets/et-logo.jpg';
 import MarketTicker from './components/MarketTicker';
 import SignalCard from './components/SignalCard';
 import StatsPanel from './components/StatsPanel';
@@ -30,6 +31,18 @@ export default function App() {
   const [scanning, setScanning] = useState(false);
   const [filters, setFilters] = useState({});
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'dark';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -75,7 +88,17 @@ export default function App() {
   const unreadCount = alerts.filter((a) => !a.is_read).length;
 
   return (
-    <div className="min-h-screen bg-[#F7F8FA]">
+    <div className="min-h-screen" style={{ background: 'var(--bg-base)' }}>
+      {/* Animated Background */}
+      <div className="bg-animation">
+        <div className="bg-object"></div>
+        <div className="bg-object"></div>
+        <div className="bg-object"></div>
+        <div className="bg-object"></div>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10">
       {/* Market Ticker Bar */}
       <MarketTicker />
 
@@ -84,13 +107,13 @@ export default function App() {
         <div className="header-inner">
           <div className="flex items-center gap-3">
             <div className="logo-icon">
-              <Radar className="w-5 h-5 text-white" />
+              <img src={etLogo} alt="Economic Times" className="w-6 h-6 object-contain" />
             </div>
             <div>
-              <h1 className="text-[15px] font-bold text-[#44475B] tracking-tight leading-none">
-                Opportunity Radar
+              <h1 className="text-[15px] font-bold text-white tracking-tight leading-none">
+                Economic Times
               </h1>
-              <p className="text-[10px] text-[#A0A7B4] mt-0.5">AI Market Intelligence</p>
+              <p className="text-[10px] text-[#cccccc] mt-0.5">Opportunity Radar</p>
             </div>
           </div>
 
@@ -111,6 +134,13 @@ export default function App() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <button onClick={toggleTheme} className="theme-toggle">
+              {theme === 'dark' ? (
+                <Sun className="w-4 h-4 text-yellow-400" />
+              ) : (
+                <Moon className="w-4 h-4 text-blue-400" />
+              )}
+            </button>
             <button onClick={handleScan} disabled={scanning} className="scan-btn">
               {scanning ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -135,7 +165,7 @@ export default function App() {
                 key={id}
                 onClick={() => { setTab(id); setMobileMenu(false); }}
                 className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm ${
-                  tab === id ? 'text-[#0088EA] bg-[#0088EA]/10' : 'text-[#7F8FA4]'
+                  tab === id ? 'text-[#ff4444] bg-[#ff4444]/10' : 'text-[#cccccc]'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -143,7 +173,7 @@ export default function App() {
                 {id === 'alerts' && unreadCount > 0 && (
                   <span className="nav-badge ml-auto">{unreadCount}</span>
                 )}
-                <ChevronRight className="w-3 h-3 ml-auto text-[#A0A7B4]" />
+                <ChevronRight className="w-3 h-3 ml-auto text-[#888888]" />
               </button>
             ))}
           </div>
@@ -159,15 +189,15 @@ export default function App() {
             <FilterBar onFilter={setFilters} />
             {loading && signals.length === 0 ? (
               <div className="flex items-center justify-center py-24">
-                <Loader2 className="w-7 h-7 text-blue-500 animate-spin" />
+                <Loader2 className="w-7 h-7 text-red-500 animate-spin" />
               </div>
             ) : signals.length === 0 ? (
               <div className="empty-state">
                 <div className="empty-icon">
-                  <Radar className="w-8 h-8 text-[#A0A7B4]" />
+                  <img src={etLogo} alt="Economic Times" className="w-8 h-8 object-contain opacity-50" />
                 </div>
-                <p className="text-sm text-[#7F8FA4] mt-3 mb-1 font-medium">No signals detected yet</p>
-                <p className="text-xs text-[#A0A7B4] mb-4">Run a scan to start monitoring the market</p>
+                <p className="text-sm text-[#cccccc] mt-3 mb-1 font-medium">No signals detected yet</p>
+                <p className="text-xs text-[#888888] mb-4">Run a scan to start monitoring the market</p>
                 <button onClick={handleScan} className="scan-btn">
                   <RefreshCw className="w-3.5 h-3.5" />
                   Run First Scan
@@ -192,16 +222,15 @@ export default function App() {
       <footer className="border-t border-[#ECEDF1] mt-12">
         <div className="max-w-[1280px] mx-auto px-6 py-5 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-5 h-5 bg-gradient-to-br from-[#0088EA] to-[#005BB5] rounded flex items-center justify-center">
-              <Radar className="w-3 h-3 text-white" />
-            </div>
-            <span className="text-xs text-[#A0A7B4]">Opportunity Radar</span>
+            <img src={etLogo} alt="Economic Times" className="w-4 h-4 object-contain" />
+            <span className="text-xs text-[#888888]">Economic Times Opportunity Radar</span>
           </div>
-          <p className="text-[11px] text-[#A0A7B4]">
+          <p className="text-[11px] text-[#888888]">
             Built for ET Markets Hackathon · Data from NSE, BSE, SEBI
           </p>
         </div>
       </footer>
+      </div>
     </div>
   );
 }
